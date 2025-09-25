@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 
 
-namespace Tests_SGMU.Desktop.ViewModels
+namespace Tests_SGMU.Desktop.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

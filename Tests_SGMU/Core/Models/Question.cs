@@ -1,6 +1,30 @@
-public class Question
+using System.Collections.Generic;
+
+namespace Tests_SGMU.Core.Models
 {
-    public string ?QuestionText { get; set; }
-    public string[] ?Answers { get; set; } // Варианты ответов
-    public int CorrectAnswerIndex { get; set; } // Индекс правильного ответа
+    public class Question
+    {
+        public string Text { get; set; }
+        public List<string> Options { get; set; }
+        public int CorrectAnswerIndex { get; set; }
+        public string UserAnswer { get; set; }
+        public bool IsCorrect => UserAnswer == Options[CorrectAnswerIndex];
+
+        public Question()
+        {
+            Options = new List<string>();
+        }
+    }
+
+    public class Test
+    {
+        public string Name { get; set; }
+        public List<Question> Questions { get; set; }
+        public string FilePath { get; set; }
+
+        public Test()
+        {
+            Questions = new List<Question>();
+        }
+    }
 }

@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Tests_SGMU.Desktop.Views.AllQuestionsView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <StackPanel>
+        <TextBlock Text="{Binding Title}" Style="{StaticResource TitleText}"/>
+        <TextBlock Text="Здесь будет выбор тестов..." 
+                   HorizontalAlignment="Center"
+                   Foreground="{StaticResource TextBrush}"/>
+    </StackPanel>
+</UserControl>
