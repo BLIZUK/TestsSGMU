@@ -9,22 +9,11 @@ namespace Tests_SGMU.Core.Models
         public int CorrectAnswerIndex { get; set; }
         public string UserAnswer { get; set; }
         public bool IsCorrect => UserAnswer == Options[CorrectAnswerIndex];
+        public bool IsAnswered => !string.IsNullOrEmpty(UserAnswer);
 
         public Question()
         {
             Options = new List<string>();
-        }
-    }
-
-    public class Test
-    {
-        public string Name { get; set; }
-        public List<Question> Questions { get; set; }
-        public string FilePath { get; set; }
-
-        public Test()
-        {
-            Questions = new List<Question>();
         }
     }
 }

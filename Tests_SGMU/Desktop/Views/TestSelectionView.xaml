@@ -21,20 +21,22 @@
                   Grid.Row="1"
                   Background="{StaticResource SurfaceBrush}"
                   BorderThickness="0"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  Margin="0,0,0,20">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="10">
-                        <TextBlock Text="{Binding Name}" 
-                                   FontSize="16" 
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextBrush}"/>
+                        <TextBlock Text="{Binding FileName}"
+                                   FontSize="10"
+                                   Foreground="White"
+                                   TextWrapping="Wrap"/>
                         <TextBlock Text="{Binding Questions.Count, StringFormat='Вопросов: {0}'}"
                                    FontSize="12"
-                                   Foreground="#AAAAAA"/>
+                                   Foreground="White"/>
                         <TextBlock Text="{Binding FilePath}"
                                    FontSize="10"
-                                   Foreground="#666666"/>
+                                   Foreground="White"
+                                   TextWrapping="Wrap"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -43,12 +45,11 @@
         <!-- Кнопки -->
         <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Center"
-                    Grid.Row="2"
-                    Margin="0,20,0,0">
-            <Button Content="⬅ Назад" 
+                    Grid.Row="2" Cursor="Hand">
+            <Button Content="📁 Выбрать файл..." 
                     Style="{StaticResource ModernButton}"
-                    Command="{Binding BackCommand}"
-                    Width="120"/>
+                    Command="{Binding SelectFileCommand}"
+                    Width="150" Cursor="Hand"/>
 
             <Button Content="Начать тест" 
                     Style="{StaticResource ModernButton}"

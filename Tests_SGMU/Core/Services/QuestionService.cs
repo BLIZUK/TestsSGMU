@@ -14,25 +14,25 @@ namespace Tests_SGMU.Core.Services
         {
             var tests = new List<Test>();
 
-            // Ищем все txt файлы в папке Data
+            // Ищем все txt файлы в папке Data (если она существует)
             string dataFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data");
 
-            if (!Directory.Exists(dataFolder))
-                Directory.CreateDirectory(dataFolder);
-
-            var txtFiles = Directory.GetFiles(dataFolder, "*.txt");
-
-            foreach (var file in txtFiles)
+            if (Directory.Exists(dataFolder))
             {
-                try
+                var txtFiles = Directory.GetFiles(dataFolder, "*.txt");
+
+                foreach (var file in txtFiles)
                 {
-                    var test = ParseTestFromFile(file);
-                    tests.Add(test);
-                }
-                catch (Exception ex)
-                {
-                    // Логируем ошибку, но продолжаем загрузку других файлов
-                    System.Diagnostics.Debug.WriteLine($"Ошибка загрузки файла {file}: {ex.Message}");
+                    try
+                    {
+                        var test = ParseTestFromFile(file);
+                        tests.Add(test);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Логируем ошибку, но продолжаем загрузку других файлов
+                        System.Diagnostics.Debug.WriteLine($"Ошибка загрузки файла {file}: {ex.Message}");
+                    }
                 }
             }
 
@@ -44,7 +44,9 @@ namespace Tests_SGMU.Core.Services
             if (!File.Exists(filePath))
                 throw new FileNotFoundException($"Файл не найден: {filePath}");
 
-            var lines = File.ReadAllLines(filePath).Where(line => !string.IsNullOrWhiteSpace(line)).ToArray();
+            var lines = File.ReadAllLines(filePath)
+                .Where(line => !string.IsNullOrWhiteSpace(line))
+                .ToArray();
 
             if (lines.Length < 4)
                 throw new FormatException("Файл должен содержать как минимум 4 строки: название, вопрос, варианты ответов, правильный ответ");
@@ -56,6 +58,7 @@ namespace Tests_SGMU.Core.Services
             };
 
             int currentLine = 1; // Начинаем с вопроса (вторая строка)
+            int questionNumber = 1;
 
             while (currentLine < lines.Length)
             {
@@ -71,25 +74,29 @@ namespace Tests_SGMU.Core.Services
                 }
 
                 if (question.Options.Count < 2)
-                    throw new FormatException($"Вопрос должен содержать как минимум 2 варианта ответа: {question.Text}");
+                    throw new FormatException($"Вопрос #{questionNumber} должен содержать как минимум 2 варианта ответа: {question.Text}");
 
                 // Читаем номер правильного ответа
                 if (currentLine >= lines.Length || !int.TryParse(lines[currentLine], out int correctAnswer))
-                    throw new FormatException($"Ожидался номер правильного ответа для вопроса: {question.Text}");
+                    throw new FormatException($"Ожидался номер правильного ответа для вопроса #{questionNumber}: {question.Text}");
 
                 // Проверяем, что номер правильного ответа в допустимом диапазоне
                 if (correctAnswer < 1 || correctAnswer > question.Options.Count)
-                    throw new FormatException($"Номер правильного ответа {correctAnswer} вне диапазона для вопроса: {question.Text}");
+                    throw new FormatException($"Номер правильного ответа {correctAnswer} вне диапазона для вопроса #{questionNumber}: {question.Text}");
 
                 question.CorrectAnswerIndex = correctAnswer - 1; // Конвертируем в 0-based индекс
                 currentLine++;
 
                 test.Questions.Add(question);
+                questionNumber++;
 
-                // Если остались строки, предполагаем, что это следующий вопрос
-                if (currentLine < lines.Length && string.IsNullOrWhiteSpace(lines[currentLine]))
+                // Пропускаем пустые строки между вопросами
+                while (currentLine < lines.Length && string.IsNullOrWhiteSpace(lines[currentLine]))
                     currentLine++;
             }
+
+            if (test.Questions.Count == 0)
+                throw new FormatException("В файле не найдено ни одного валидного вопроса");
 
             return test;
         }

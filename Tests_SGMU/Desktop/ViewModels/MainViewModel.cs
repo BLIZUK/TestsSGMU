@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Tests_SGMU.Core;
 using Tests_SGMU.Core.Models;
-using Tests_SGMU.Desktop.Views;
+using Tests_SGMU.Desktop.ViewModels;
 
 
 namespace Tests_SGMU.Desktop.ViewModels
@@ -45,12 +45,12 @@ namespace Tests_SGMU.Desktop.ViewModels
 
         private void ShowAllQuestions()
         {
-            NavigateTo(new AllQuestionsViewModel(this));
+            // Будет использоваться когда выбран тест
         }
 
         private void ShowExam()
         {
-            NavigateTo(new ExamViewModel(this));
+            // Будет использоваться когда выбран тест
         }
 
         private void GoBack()
@@ -71,6 +71,11 @@ namespace Tests_SGMU.Desktop.ViewModels
 
             CurrentView = viewModel;
             OnPropertyChanged(nameof(CanGoBack));
+        }
+
+        public void StartAllQuestions(Test test)
+        {
+            NavigateTo(new AllQuestionsViewModel(this, test));
         }
 
         public void NavigateToMainMenu()
