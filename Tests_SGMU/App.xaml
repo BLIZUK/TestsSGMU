@@ -5,6 +5,7 @@
              StartupUri="Desktop/Views/MainWindow.xaml">
 
     <Application.Resources>
+        
         <!-- Конвертеры -->
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
@@ -24,7 +25,7 @@
         <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
         <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
 
-        <!-- Стиль для современных кнопок -->
+        <!-- Стиль для кнопок -->
         <Style x:Key="ModernButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
             <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>

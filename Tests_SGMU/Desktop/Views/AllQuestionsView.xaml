@@ -41,67 +41,31 @@
                        TextAlignment="Center"/>
         </Border>
 
-        <!-- Варианты ответов -->
-        <ItemsControl ItemsSource="{Binding CurrentQuestion.Options}"
-              Grid.Row="3"
-              Margin="0,0,0,20">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <RadioButton Content="{Binding}"
-                         GroupName="Answers"
-                         Margin="5,10"
-                         FontSize="14"
-                         Foreground="{StaticResource TextBrush}"
-                         IsChecked="{Binding Path=DataContext.SelectedAnswer, 
-                                            RelativeSource={RelativeSource AncestorType=UserControl}, 
-                                            Mode=TwoWay,
-                                            Converter={StaticResource RadioButtonConverter},
-                                            ConverterParameter={Binding}}">
-                        <RadioButton.Style>
-                            <Style TargetType="RadioButton">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="RadioButton">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <Border x:Name="radioBorder"
-                                                Grid.Column="0"
-                                                Width="20"
-                                                Height="20"
-                                                Margin="0,0,10,0"
-                                                BorderThickness="2"
-                                                BorderBrush="#007ACC"
-                                                CornerRadius="10">
-                                                    <Ellipse x:Name="radioFill"
-                                                     Fill="Transparent"
-                                                     Margin="3"/>
-                                                </Border>
-
-                                                <ContentPresenter Grid.Column="1"
-                                                          VerticalAlignment="Center"/>
-                                            </Grid>
-
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="radioFill" Property="Fill" Value="#007ACC"/>
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter TargetName="radioBorder" Property="Opacity" Value="0.5"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </RadioButton.Style>
-                    </RadioButton>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <!-- Варианты ответов - LISTBOX РЕШЕНИЕ -->
+        <ListBox ItemsSource="{Binding CurrentQuestion.Options}"
+         SelectedItem="{Binding SelectedAnswer, Mode=TwoWay}"
+         Grid.Row="3"
+         Margin="0,0,0,20"
+         Background="Transparent"
+         BorderThickness="0">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <RadioButton Content="{Binding}"
+                                     GroupName="Answers"
+                                     Margin="10,5"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextBrush}"
+                                     IsChecked="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
 
         <!-- Результат проверки -->
         <Border Grid.Row="4"
