@@ -5,8 +5,8 @@
 
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         
-        <TextBlock Text="Тесты по физиологии" 
-                   FontSize="28" 
+        <TextBlock Text="Главное меню" 
+                   FontSize="32" 
                    Foreground="White" 
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
@@ -15,16 +15,19 @@
         <Button Content="📚 Выбор теста" 
                 Style="{StaticResource ModernButton}"
                 Command="{Binding NavigateToTestSelectionCommand}"
-                Width="250"/>
+                Width="250"
+                Height="30"/>
 
         <Button Content="📖 Все вопросы" 
                 Style="{StaticResource ModernButton}"
                 Command="{Binding NavigateToAllQuestionsCommand}"
-                Width="250"/>
+                Width="250"
+                Height="30"/>
 
         <Button Content="🎯 Экзамен" 
                 Style="{StaticResource ModernButton}"
                 Command="{Binding NavigateToExamCommand}"
-                Width="250"/>
+                Width="250"
+                Height="30"/>
     </StackPanel>
 </UserControl>

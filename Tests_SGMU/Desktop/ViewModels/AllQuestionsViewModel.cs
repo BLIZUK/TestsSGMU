@@ -73,6 +73,11 @@ namespace Tests_SGMU.Desktop.ViewModels
         {
             _mainViewModel = mainViewModel;
             _test = test;
+            foreach (var question in test.Questions)
+            {
+                question.UserAnswer = null;
+            }
+
             CurrentQuestionIndex = 0;
 
             BackCommand = new RelayCommand(() => _mainViewModel.GoBackCommand.Execute(null));

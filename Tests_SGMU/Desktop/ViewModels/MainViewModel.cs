@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using Tests_SGMU.Core;
 using Tests_SGMU.Core.Models;
@@ -45,12 +46,14 @@ namespace Tests_SGMU.Desktop.ViewModels
 
         private void ShowAllQuestions()
         {
-            // Будет использоваться когда выбран тест
+            MessageBox.Show("Этот меню находится в разработке", "Информация",
+                                      MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ShowExam()
         {
-            // Будет использоваться когда выбран тест
+            MessageBox.Show("Этот меню находится в разработке", "Информация",
+                                      MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void GoBack()
